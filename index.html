@@ -1,0 +1,391 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>🍫 For My Sanu, Chocolate Day Surprise 🍫</title>
+    <!-- Using fonts different from the rose day page -->
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Indie+Flower&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        --brown: #8b4513;
+        --cream: #f5e6c4;
+        --shadow: rgba(139,69,19,0.2);
+      }
+      body {
+        font-family: 'Indie Flower', cursive;
+
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom right, var(--cream), #a9745a);
+        /* font-family: 'Roboto', sans-serif; */
+        text-align: center;
+        overflow-x: hidden;
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%238b4513" d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z"/></svg>'), auto;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      /* Header styles */
+      h1, h2, h3 {
+        font-family: 'Pacifico', cursive;
+        color: var(--brown);
+      }
+      h1 {
+        margin-top: 20px;
+        font-size: 2.5em;
+      }
+      /* Main chocolate interactive element */
+      .choco-container {
+        margin: 40px auto;
+        cursor: pointer;
+        position: relative;
+      }
+      .choco {
+        font-size: 120px;
+        animation: appear 1.5s ease-out;
+        transition: transform 0.3s;
+      }
+      .choco:hover {
+        transform: scale(1.1) rotate(5deg);
+      }
+      @keyframes appear {
+        from { transform: scale(0) rotate(-360deg); }
+        to { transform: scale(1) rotate(0deg); }
+      }
+      /* Falling chocolate pieces */
+      .choco-piece {
+        position: absolute;
+        font-size: 30px;
+        pointer-events: none;
+        animation: fall linear forwards;
+      }
+      @keyframes fall {
+        0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+      }
+      /* Love Letter Section */
+      .love-letter {
+        background: #fff;
+        padding: 30px;
+        margin: 40px 0;
+        border-radius: 15px;
+        box-shadow: 0 0 20px var(--shadow);
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 1s ease;
+      }
+      .love-letter.reveal {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reasons {
+        text-align: left;
+        margin: 20px auto;
+        max-width: 600px;
+        font-size: 1.2em;
+        list-style: none;
+        padding: 0;
+      }
+      /* .reasons li::before {
+        content: "🍫 ";
+      } */
+      img.photo {
+        width: 200px;
+        border-radius: 50%;
+        border: 5px solid var(--brown);
+        margin: 20px;
+      }
+      /* Hidden Secret Modal (for key sequence) */
+      .secret-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        padding: 20px 30px;
+        border: 2px solid var(--brown);
+        border-radius: 10px;
+        box-shadow: 0 0 30px var(--shadow);
+        z-index: 1000;
+      }
+      /* Mysterious hidden button in bottom left */
+      /* .mystery-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        font-size: 30px;
+        opacity: 0.1;
+        transition: opacity 0.3s;
+        cursor: pointer;
+      }
+      .mystery-button:hover {
+        opacity: 1;
+      } */
+
+
+
+      .mystery-button {
+              position: fixed;
+              font-size: 30px;
+              opacity: 0.3;
+              transition: opacity 0.3s;
+              cursor: pointer;
+          }
+          .mystery-button:hover {
+              opacity: 1;
+          }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Happy Chocolate Day, सानु ❤️</h1>
+      
+      <!-- Main interactive chocolate element -->
+      <div class="choco-container" onclick="createChocoPieces()">
+        <div class="choco">🍫</div>
+      </div>
+      
+      <!-- Love Letter with chocolate-themed analogies -->
+      <div class="love-letter" id="loveLetter">
+        <h2>To my सानु ❤️</h2>
+        <p>You are the sweetness of my life, and you are absolutely essential. 🧬</p>
+        <p><br></p>
+        <p>You are the:</p>
+        <ul class="reasons">
+          <li>🍫    Chocolate in my milk</li>
+          <li>☕    Secret ingredient in my recipe</li>
+          <li>☕︎     Warm cocoa on a chilly day</li>
+          <li>🍧    Endless supply of sweetness</li>
+        </ul>
+        <p>Here's a choclate bar for my princess.</p>
+        <!-- <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" class="photo" alt="Choco Love"> -->
+        <img src="https://i.ibb.co/BVYWHdqm/cat-with-chocolate-bar.jpg" class="photo" alt="Choco Love" onclick="catMeow()">
+        <p id="cat_say">🔇</p>
+      </div>
+    </div>
+
+    <!-- Hidden secret modal revealed via key sequence -->  
+    <div class="secret-modal" id="secretModal">
+      <h2>Secret Confection!</h2>
+      <p>You’ve unlocked a hidden layer of our sweet love.</p>
+      <p>I love you more than how much you love रसमलाई or काला जामुन from TipTop 🍽️ 😉</p>
+    </div>
+
+    <!-- Mysterious nearly invisible button at bottom left -->
+    <!-- <div class="mystery-button" onclick="revealMystery()">🍫</div> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+
+
+          const treasure_emojis = ['🍫', '🍪', '☕','🍦','🍬','✨','🍭','🤎','❤️','☕︎','🍰','🍕','🍧','🍨','🧿'];
+          
+          const positions = [
+              { top: '10px', left: '10px' }, // Top-left
+              { top: '10px', right: '10px' }, // Top-right
+              { bottom: '10px', left: '10px' }, // Bottom-left
+              { bottom: '10px', right: '10px' }, // Bottom-right
+              { top: '50%', left: '10px' }, // Left-center
+              { top: '50%', right: '10px' }, // Right-center
+              { top: '10px', left: '50%' }, // Top-center
+              // { bottom: '10px', left: '50%' }, // Bottom-center
+              { top: '20%', left: '5%' },
+              { top: '30%', right: '5%' },
+              // { bottom: '20%', left: '5%' },
+              // { bottom: '30%', right: '5%' },
+
+              { top: '40%', left: '10px' },
+              // { bottom: '40%', right: '10px' },
+              { top: '60%', left: '10px' }
+          ];
+
+          function revealMystery() {
+              alert("You found a mystery button!");
+          }
+
+          function createMysteryButtons() {
+              for (let i = 0; i < positions.length; i++) {
+                  const button = document.createElement("div");
+                  button.className = "mystery-button";
+                  button.innerHTML = treasure_emojis[Math.floor(Math.random() * treasure_emojis.length)];
+                  button.style.top = positions[i].top;
+                  button.style.left = positions[i].left || 'auto';
+                  button.style.right = positions[i].right || 'auto';
+                  button.onclick = revealMystery;
+                  document.body.appendChild(button);
+              }
+          }
+
+          createMysteryButtons()
+
+
+      // Function to create falling chocolate pieces on clicking the chocolate bar
+      function createChocoPieces() {
+        let audio = new Audio('gifts.mp3');
+        audio.play();
+        // Array of chocolate-related emojis for variety
+        const emojis = ['🍫', '🍪', '☕','🍦','🍬','✨','🍭','🤎','❤️','☕︎','🍰'];
+        for (let i = 0; i < 30; i++) {
+          const piece = document.createElement('div');
+          piece.className = 'choco-piece';
+          piece.style.left = Math.random() * 100 + 'vw';
+          piece.style.top = '-50px';
+          piece.style.animationDuration = (Math.random() * 3 + 2) + 's';
+          piece.style.animationDelay = Math.random() * 2 + 's';
+          // Randomly pick an emoji
+          piece.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          document.body.appendChild(piece);
+          // Remove the piece after animation completes
+          setTimeout(() => piece.remove(), 5000);
+        }
+        audio.play();
+
+
+      }
+      
+      // Reveal the love letter on scroll (with a twist)
+      window.addEventListener('scroll', () => {
+        const letter = document.getElementById('loveLetter');
+        const position = letter.getBoundingClientRect();
+        if (position.top < window.innerHeight * 0.75) {
+          letter.classList.add('reveal');
+        }
+      });
+
+      // Mystery button function: shows an alert with an extra riddle
+      // function revealMystery() {
+      //   alert("Mystery unlocked! What is sweet, hidden, and makes life magical? Keep looking...");
+      //   const messages = ["", "", "", ""];
+      // }
+
+      // function revealMystery() {
+      //   const messages = [
+      //       "Life is full of surprises!",
+      //       "You just unlocked a hidden secret!",
+      //       "The sweetest things are often unseen!",
+      //       "Magic happens when you least expect it!",
+      //       "A little mystery makes life exciting!",
+      //       "Keep searching, and you shall find!",
+      //       "What is hidden may be the most precious!",
+      //       "The answer is closer than you think!",
+      //       "Unlocking secrets brings joy!",
+      //       "A treasure awaits those who seek!"
+      //   ];
+
+      //   // Pick a random message
+      //   const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+      //   // Show the alert
+      //   alert(randomMessage);
+      // } 
+
+      
+
+      function revealMystery() {
+
+          const messages = [
+          "You are sweeter than chocolate, and today, I celebrate you! Happy Chocolate Day, my love!",
+          "तिमी मेरो मुटुको कोको हौ, मेरो जीवनलाई न्यानो र मिठो बनाउने। 🫘",
+          "हो चकलेट मीठो हुन्छ, तर हाम्रो मायाको मिठाससँग कुनै तुलना छैन। 🍭",
+          "गर्मी मौसममा बाहिर राखेको चकलेट झैँ, तिम्रो मायाले मेरो मन हर पल पग्लिरहन्छ। 🥞",
+          "मलाई कसैले आइसक्रिम मीठो कि चकलेट बार मीठो भनेर सोध्यो भने म मेरी सानुको माया मीठो भन्छु। 🍫",
+          "Like the smoothness of chocolate, your love makes my life sweeter and better. Happy Chocolate Day!",
+          "Roses are red, chocolates are divine, and I am so lucky to call you mine! Happy Chocolate Day! 🌹",
+          "May our love be as rich, delightful, and everlasting as the taste of chocolate. Happy Chocolate Day! ✨",
+          "Just like chocolate, your love fills my life with happiness and sweetness. Happy Chocolate Day! 🍯",
+        ];
+          // const messages = [
+          //     "Life is full of surprises!",
+          //     "You just unlocked a hidden secret!",
+          //     "The sweetest things are often unseen!",
+          //     "Magic happens when you least expect it!",
+          //     "A little mystery makes life exciting!",
+          //     "Keep searching, and you shall find!",
+          //     "What is hidden may be the most precious!",
+          //     "The answer is closer than you think!",
+          //     "Unlocking secrets brings joy!",
+          //     "A treasure awaits those who seek!"
+          // ];
+
+          if (Math.random() < 0.7) {
+              // 70% chance to show a random message
+              const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+              // alert(randomMessage);
+              
+                let audio = new Audio('chew.mp3');
+                audio.play();
+    
+    
+              Swal.fire({
+
+              title: "सानु ❤️",
+              text: randomMessage ,
+              icon: "info",
+              confirmButtonText: "❤️",
+
+              confirmButtonColor: "white",
+              });
+          } else {
+              // 30% chance to reveal the secret modal
+              revealSecretModal();
+          }
+          
+      }
+
+      // Key sequence detection for "chocolate" easter egg
+      const secretCode = "chocolate";
+      let keySequence = "";
+      document.addEventListener("keydown", (e) => {
+        keySequence += e.key.toLowerCase();
+        // If the keySequence is not a prefix, reset it
+        if (!secretCode.startsWith(keySequence)) {
+          keySequence = e.key.toLowerCase();
+        }
+        // If the full secret code is entered, show the secret modal
+        if (keySequence === secretCode) {
+          revealSecretModal();
+          keySequence = "";
+        }
+      });
+
+
+
+      function catMeow() {
+        let audio = new Audio('cat_i_love_you.mp3');
+        audio.play();
+
+      let catSay = document.getElementById("cat_say");
+
+  catSay.textContent = "I";
+  setTimeout(() => {
+      catSay.textContent = "love";
+  }, 1500); // After 1 second
+
+  setTimeout(() => {
+      catSay.textContent = "you";
+  }, 3300); // After 1 second (I) + 1.5 seconds (love)
+
+  setTimeout(() => {
+      catSay.textContent = "❤️🙊❤️"; // Clears after 1 more second
+  }, 4800);
+      }
+
+      
+
+      // Function to reveal and then hide the secret modal
+      function revealSecretModal() {
+        const modal = document.getElementById('secretModal');
+        modal.style.display = 'block';
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 7000);
+      }
+    </script>
+  </body>
+  </html>
